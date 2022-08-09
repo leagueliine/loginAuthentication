@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Main Login</title>
+  </head>
+  <body>
+    <div id="App">
+      <input id="email" type="email" />
+      <input id="senha" type="password" />
+      <button onclick="Logar()">Logar</button>
+    </div>
+    //JAVASCRIPT
+    <script type="text/javascript">
+      function Logar() {
+        email = document.querySelector('#email').value
+        senha = document.querySelector('#senha').value
+
+        //VERIFICA OS DADOS.
+        if (!email || !senha) {
+          return alert('Por favor, complete os campos.')
+        }
+
+        //ENVIA OS DADOS PARA O SERVIDOR
+        axios
+          .post('api/users/Logar', {
+            email,
+            senha
+          })
+          .then(response => {
+            if (response.data.erro) {
+              return alert(response.data.erro)
+            } else {
+              //SE TUDO DER CERTO, REDIRECIONA
+              window.location.href = '/privado'
+            }
+          })
+          .catch(erro => {
+            return alert(response.data.erro)
+          })
+      }
+    </script>
+  </body>
+</html>
